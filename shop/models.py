@@ -8,12 +8,18 @@ class Category(models.Model):
     icon = models.ImageField(blank=True)
     is_public = models.BooleanField(default=False, db_index=True)
 
+    def __str__(self):
+        return self.name
+
 class Shop(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, db_index=True)
     desc = models.TextField(blank=True)
     photo = models.ImageField(blank=True)
     is_public = models.BooleanField(default=False, db_index=True)
+    
+    def __str__(self):
+        return self.name
 
 class Review(models.Model):
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
@@ -22,13 +28,19 @@ class Review(models.Model):
     rating = models.SmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     massage = models.TextField()
 
+    def __str__(self):
+        return self.author
+
 class Item(models.Model):
+    shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, db_index=True)
     desc = models.TextField(blank=True)
     amount = models.PositiveIntegerField()
     photo = models.ImageField(blank=True)
     is_public = models.BooleanField(default=False, db_index=True)     
 
+    def __str__(self):
+        return self.name
 
 #class Order(models.Model):
  #   pass      
