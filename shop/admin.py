@@ -18,7 +18,9 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Shop)
 class ShopAdmin(admin.ModelAdmin):
-    list_display = ('name', 'address_link')
+    list_display = ['category', 'name', 'address_link']
+    list_display_links = ['name']
+    list_filter = ['category']
     
     def address_link(self, shop):
         if shop.address:
